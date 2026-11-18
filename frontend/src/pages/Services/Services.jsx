@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import SEO from '../../components/Common/SEO';
 import ServiceCard from '../../components/Cards/ServiceCard';
 import LoadingSkeleton from '../../components/Common/LoadingSkeleton';
@@ -33,27 +34,28 @@ export default function Services() {
   return (
     <>
       <SEO 
-        title="Enterprise Services | Swaraj Asia Technologies" 
-        description="Explore Swaraj Asia's service practices: SAP ERP, Oracle, Salesforce CRM, Cloud Architecture, Power BI Analytics, and IT Consulting."
+        title="Enterprise Services & Practices | Swaraj Asia™ Technologies" 
+        description="Explore Swaraj Asia's service practices: Oracle ERP Cloud, Application Support & Optimization, IT Staff Augmentation, and Enterprise Consulting."
       />
 
       {/* Header */}
-      <section className="py-20 bg-gradient-to-b from-brand-dark via-slate-900 to-brand-dark border-b border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <span className="text-xs font-bold tracking-wider text-brand-cyan uppercase bg-brand-cyan/10 border border-brand-cyan/20 px-3.5 py-1.5 rounded-full">
+      <section className="py-20 bg-white border-b border-slate-200 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-pink-500/5 rounded-full filter blur-[120px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
+          <span className="badge-pink">
             Our Offerings
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white">
-            Enterprise Technology <span className="text-gradient-primary">Practices</span>
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+            Enterprise Technology <span className="text-pink-gradient">Practices</span>
           </h1>
-          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Delivering robust end-to-end IT solutions engineered to accelerate digital transformation and optimize business operations.
+          <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Delivering robust end-to-end enterprise software implementations, Oracle application optimization, and specialized technology staffing.
           </p>
         </div>
       </section>
 
       {/* Category Tabs & Grid */}
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           {/* Tabs */}
@@ -64,8 +66,8 @@ export default function Services() {
                 onClick={() => setFilteredCategory(cat)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   filteredCategory === cat
-                    ? 'bg-brand-royal text-white shadow-lg shadow-brand-royal/25'
-                    : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60'
+                    ? 'bg-brand-pink text-white shadow-md shadow-pink-500/20'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
                 }`}
               >
                 {cat}
@@ -76,7 +78,7 @@ export default function Services() {
           {loading ? (
             <LoadingSkeleton count={6} />
           ) : displayedServices.length === 0 ? (
-            <div className="text-center py-12 text-slate-400">
+            <div className="text-center py-12 text-slate-500 bg-slate-50 rounded-2xl border border-slate-200">
               No services found in this category.
             </div>
           ) : (
@@ -86,6 +88,26 @@ export default function Services() {
               ))}
             </div>
           )}
+
+          {/* Bottom CTA Strip */}
+          <div className="mt-16 bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200 text-center max-w-4xl mx-auto space-y-4">
+            <span className="badge-cyan">Tailored Engagements</span>
+            <h3 className="font-display text-2xl sm:text-3xl font-bold text-slate-900">
+              Have a Specific Requirement in Mind?
+            </h3>
+            <p className="text-slate-600 text-sm max-w-xl mx-auto leading-relaxed">
+              Our enterprise solution architects can evaluate your existing Oracle or enterprise application estate and propose a structured implementation or staffing roadmap.
+            </p>
+            <div className="pt-2">
+              <Link
+                to="/contact/expert"
+                className="btn-pink hover:scale-105 transition-all inline-flex items-center gap-2 shadow-md shadow-pink-500/20"
+              >
+                <span>Talk to an Expert</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
 
         </div>
       </section>

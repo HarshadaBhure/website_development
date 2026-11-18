@@ -1,0 +1,36 @@
+txnId,date,amount,type,status,originalTxnId,note
+TXN-20241001-0001,2024-10-01,2500.00,payment,settled,,Normal payment
+TXN-20241001-0002,2024-10-01,1800.00,payment,settled,,Normal payment
+TXN-20241002-0003,2024-10-02,3200.00,payment,settled,,Normal payment
+TXN-20241002-0004,2024-10-02,950.00,payment,settled,,Normal payment
+TXN-20241003-0005,2024-10-03,4100.00,payment,settled,,Normal payment
+TXN-20241003-0006,2024-10-03,750.00,payment,settled,,Normal payment
+TXN-20241004-0007,2024-10-04,2200.00,payment,settled,,Normal payment
+TXN-20241004-0008,2024-10-04,3300.00,payment,settled,,Normal payment
+TXN-20241005-0009,2024-10-05,1650.00,payment,settled,,Normal payment
+TXN-20241005-0010,2024-10-05,2900.00,payment,settled,,Normal payment
+TXN-20241007-0011,2024-10-07,1100.00,payment,settled,,Normal payment
+TXN-20241008-0012,2024-10-08,4750.00,payment,settled,,Normal payment
+TXN-20241009-0013,2024-10-09,2300.00,payment,settled,,Normal payment
+TXN-20241010-0014,2024-10-10,1999.50,payment,settled,,GAP-2 rounding source
+TXN-20241011-0015,2024-10-11,2999.50,payment,settled,,GAP-2 rounding source
+TXN-20241012-0016,2024-10-12,3999.50,payment,settled,,GAP-2 rounding source
+TXN-20241013-0017,2024-10-13,5000.00,payment,settled,,Normal payment
+TXN-20241014-0018,2024-10-14,1500.00,payment,settled,,Normal payment
+TXN-20241015-0019,2024-10-15,1750.00,payment,settled,,GAP-3 original entry
+TXN-20241015-0019,2024-10-15,1750.00,payment,settled,,GAP-3 DUPLICATE entry
+TXN-20241016-0020,2024-10-16,2800.00,payment,settled,,Normal payment
+TXN-20241017-0021,2024-10-17,3600.00,payment,settled,,Normal payment
+TXN-20241018-0022,2024-10-18,4200.00,payment,settled,,Normal payment
+TXN-20241019-0023,2024-10-19,980.00,payment,settled,,Normal payment
+TXN-20241020-0024,2024-10-20,-1200.00,refund,settled,TXN-20241001-9999,GAP-4 orphaned refund
+TXN-20241021-0025,2024-10-21,2100.00,payment,settled,,Normal payment
+TXN-20241022-0026,2024-10-22,3400.00,payment,settled,,Normal payment
+TXN-20241023-0027,2024-10-23,1900.00,payment,settled,,Normal payment
+TXN-20241024-0028,2024-10-24,2700.00,payment,settled,,Normal payment
+TXN-20241025-0029,2024-10-25,4800.00,payment,settled,,Normal payment
+TXN-20241026-0030,2024-10-26,1250.00,payment,settled,,Normal payment
+TXN-20241027-0031,2024-10-27,3100.00,payment,settled,,Normal payment
+TXN-20241028-0032,2024-10-28,2450.00,payment,settled,,Normal payment
+TXN-20241029-0033,2024-10-29,1800.00,payment,settled,,Normal payment
+TXN-20241031-0034,2024-10-31,2850.00,payment,pending_settlement,,GAP-1 settles next month

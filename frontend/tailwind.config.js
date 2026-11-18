@@ -8,17 +8,21 @@ export default {
     extend: {
       colors: {
         brand: {
-          dark: '#0A0F1D',       // Premium Deep Dark Navy
-          navy: '#0F172A',       // Rich Navy Slate
-          blue: '#1E293B',       // Dark Charcoal Blue
-          royal: '#2563EB',      // Primary Vibrant Royal Blue
-          lightRoyal: '#3B82F6', // Lighter Royal Accent
-          cyan: '#06B6D4',       // Tech Glow Cyan Accent
-          indigo: '#6366F1',     // Modern Accent Indigo
-          cardBg: '#131C31',     // Dark Card Background
-          cardBorder: '#1E293B', // Subtle Border
-          lightBg: '#F8FAFC',    // Off White Light Section
-          grayText: '#94A3B8'    // Soft Text Gray
+          light:       '#FFFFFF',   // Dominant primary white
+          lightBg:     '#F8FAFC',   // Secondary light background for sections
+          lightCard:   '#FFFFFF',   // Card background
+          borderLight: '#E2E8F0',   // Subtle light border
+          darkText:    '#0F172A',   // Main heading / title text (Slate 900)
+          slateText:   '#334155',   // Body text (Slate 700)
+          mutedText:   '#64748B',   // Muted gray text (Slate 500)
+          
+          // Page Accent Colors
+          pink:        '#DF038B',   // Vibrant Pink (Primary CTA & highlights)
+          cyan:        '#07BEDD',   // Bright Cyan (Secondary buttons & accents)
+          yellow:      '#DDD226',   // Accent Yellow/Lime (#DDD226)
+          
+          // Dark accent for high contrast footer/navy elements if needed
+          navy:        '#0F172A',
         }
       },
       fontFamily: {
@@ -26,24 +30,30 @@ export default {
         display: ['Outfit', 'Inter', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-pattern': "radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.15) 0%, rgba(10, 15, 29, 0) 70%)",
-        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)"
+        'hero-pink': "radial-gradient(circle at 50% 30%, rgba(223, 3, 139, 0.08) 0%, rgba(255, 255, 255, 0) 70%)",
+        'hero-cyan': "radial-gradient(circle at 50% 30%, rgba(7, 190, 221, 0.08) 0%, rgba(255, 255, 255, 0) 70%)",
+        'hero-yellow': "radial-gradient(circle at 50% 30%, rgba(205, 210, 38, 0.12) 0%, rgba(255, 255, 255, 0) 70%)",
+        'grid-pattern-light': "linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px)",
+      },
+      boxShadow: {
+        'soft-pink': '0 10px 30px -10px rgba(223, 3, 139, 0.15)',
+        'soft-cyan': '0 10px 30px -10px rgba(7, 190, 221, 0.15)',
+        'soft-yellow': '0 10px 30px -10px rgba(205, 210, 38, 0.25)',
       },
       animation: {
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 3s ease-in-out infinite alternate',
+        'pulse-slow':     'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float':          'float 6s ease-in-out infinite',
+        'glow':           'glow 3s ease-in-out infinite alternate',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
+          '50%':      { transform: 'translateY(-8px)' },
         },
         glow: {
-          '0%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.4))' },
-          '100%': { opacity: '0.9', filter: 'drop-shadow(0 0 25px rgba(37, 99, 235, 0.8))' },
-        }
+          '0%':   { opacity: '0.5' },
+          '100%': { opacity: '1' },
+        },
       }
     },
   },

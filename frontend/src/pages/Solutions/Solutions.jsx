@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Database, Cloud, BarChart3, Users, Cpu, Layers, Server, UserCheck, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Database, Cloud, BarChart3, Users, Cpu, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../../components/Common/SEO';
 
@@ -53,21 +53,21 @@ export default function Solutions() {
         description="Explore Swaraj Asia's tailored solutions: ERP Transformation, Cloud Migration, BI Telemetry, CRM Automation, and Digital Engineering."
       />
 
-      <section className="py-20 bg-gradient-to-b from-brand-dark via-slate-900 to-brand-dark border-b border-slate-800/80 text-center space-y-4">
+      <section className="py-20 bg-white border-b border-slate-200 text-center space-y-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-xs font-bold tracking-wider text-brand-cyan uppercase bg-brand-cyan/10 border border-brand-cyan/20 px-3.5 py-1.5 rounded-full">
+          <span className="badge-pink">
             Targeted Architecture
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white mt-3">
-            Solutions Built Around <span className="text-gradient-primary">Your Business</span>
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mt-3">
+            Solutions Built Around <span className="text-pink-gradient">Your Business</span>
           </h1>
-          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
             Enterprise-ready frameworks designed for rapid deployment, high resilience, and measurable return on investment.
           </p>
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {solutionCategories.map((sol, idx) => {
@@ -79,32 +79,32 @@ export default function Solutions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="glass-card rounded-2xl p-7 flex flex-col justify-between border border-slate-800 hover:border-brand-royal/50 group"
+                  className="bg-white rounded-2xl p-7 flex flex-col justify-between border border-slate-200 shadow-sm hover:border-brand-pink/50 hover:shadow-soft-pink group transition-all"
                 >
                   <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-navy border border-slate-700 flex items-center justify-center text-brand-cyan group-hover:bg-brand-royal group-hover:text-white transition-colors">
+                    <div className="w-12 h-12 rounded-2xl bg-pink-50 border border-pink-100 flex items-center justify-center text-brand-pink group-hover:bg-brand-pink group-hover:text-white transition-colors">
                       <IconComp className="w-6 h-6" />
                     </div>
-                    <h3 className="font-display text-xl font-bold text-white group-hover:text-brand-cyan transition-colors">
+                    <h3 className="font-display text-xl font-bold text-slate-900 group-hover:text-brand-pink transition-colors">
                       {sol.title}
                     </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed">
+                    <p className="text-slate-600 text-sm leading-relaxed">
                       {sol.description}
                     </p>
                     <div className="space-y-2 pt-2">
                       {sol.features.map((f, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-slate-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0" />
+                        <div key={i} className="flex items-center gap-2 text-xs text-slate-700 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-pink shrink-0" />
                           <span>{f}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-800 mt-6">
+                  <div className="pt-6 border-t border-slate-100 mt-6">
                     <button
                       onClick={() => navigate('/contact')}
-                      className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-brand-royal text-white text-xs font-bold transition-all flex items-center justify-center gap-2"
+                      className="btn-pink w-full py-2.5 hover:scale-[1.01] text-xs font-bold transition-all flex items-center justify-center gap-2"
                     >
                       <span>Request Solution Architecture</span>
                       <ArrowRight className="w-3.5 h-3.5" />

@@ -18,7 +18,7 @@ You are "Swaraj AI", the intelligent enterprise assistant for Swaraj Asia Techno
 - Full Legal Name: Swaraj Asia Technologies Private Limited
 - Headquarters: 211, Leela Grandeur, Pune - Solapur Rd, Laxmi Colony, Hadapsar, Pune, Maharashtra 412307, India
 - Email: sales@swarajasia.com
-- Phone: +91 80145 02502
+- Phone: +91 80145 03503
 - Business Hours: Monday to Friday, 9:00 AM – 7:00 PM IST
 - LinkedIn: https://www.linkedin.com/company/swaraj-asia/
 - ISO Certified enterprise IT consulting and digital transformation company.
@@ -188,13 +188,13 @@ def fallback_knowledge_engine(query: str, db: Session) -> tuple[str, list]:
 
     if any(k in q for k in ["location", "where are you", "address", "office", "pune"]):
         return (
-            "Swaraj Asia Technologies is headquartered at:\n\n**211, Leela Grandeur, Pune - Solapur Rd, Laxmi Colony, Hadapsar, Pune, Maharashtra 412307, India**\n\nYou can also reach us at sales@swarajasia.com or call +91 80145 02502.",
+            "Swaraj Asia Technologies is headquartered at:\n\n**211, Leela Grandeur, Pune - Solapur Rd, Laxmi Colony, Hadapsar, Pune, Maharashtra 412307, India**\n\nYou can also reach us at sales@swarajasia.com or call +91 80145 03503.",
             ["Talk to an Expert", "Contact Us"]
         )
 
     if any(k in q for k in ["email", "phone", "contact info", "call", "reach", "number"]):
         return (
-            "You can reach Swaraj Asia Technologies through:\n\n- **Email**: sales@swarajasia.com\n- **Phone**: +91 80145 02502\n- **Hours**: Monday–Friday, 9 AM–7 PM IST\n\nWould you like me to help you submit an enquiry?",
+            "You can reach Swaraj Asia Technologies through:\n\n- **Email**: sales@swarajasia.com\n- **Phone**: +91 80145 03503\n- **Hours**: Monday–Friday, 9 AM–7 PM IST\n\nWould you like me to help you submit an enquiry?",
             ["Talk to an Expert", "Contact Us"]
         )
 

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  Inbox, Briefcase, Layers, Users, LogOut, CheckCircle, Clock, 
-  AlertCircle, RefreshCw, Eye, ShieldCheck, Search, Filter, Trash2, X, MessageSquare, Mail
+  Inbox, Briefcase, Layers, Users, LogOut, RefreshCw, Eye, ShieldCheck, Search, Filter, Trash2, X, MessageSquare, Mail
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import SEO from '../../components/Common/SEO';
@@ -116,32 +115,32 @@ export default function AdminDashboard() {
       <SEO title="Admin Dashboard | Swaraj Asia Technologies" description="Corporate administration dashboard." />
 
       {/* Header Bar */}
-      <section className="py-10 bg-slate-900/60 border-b border-slate-800">
+      <section className="py-8 bg-slate-100 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-royal to-brand-cyan flex items-center justify-center text-white font-bold font-display text-xl shadow-lg">
+            <div className="w-12 h-12 rounded-2xl bg-brand-cyan text-slate-900 flex items-center justify-center font-bold font-display text-xl shadow-md">
               SA
             </div>
             <div>
-              <h1 className="font-display text-2xl font-bold text-white flex items-center gap-2">
+              <h1 className="font-display text-2xl font-bold text-slate-900 flex items-center gap-2">
                 Executive Management Portal
-                <span className="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">Active Session</span>
+                <span className="text-xs bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-0.5 rounded-full font-bold">Active Session</span>
               </h1>
-              <p className="text-xs text-slate-400">Signed in as <span className="text-brand-cyan font-semibold">{user?.full_name || user?.username || "Admin"}</span></p>
+              <p className="text-xs text-slate-600">Signed in as <span className="text-slate-900 font-bold">{user?.full_name || user?.username || "Admin"}</span></p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
             <button
               onClick={loadDashboardData}
-              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+              className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-2xs"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Refresh</span>
             </button>
             <button
               onClick={logout}
-              className="px-4 py-2 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/30 hover:bg-rose-500 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 text-xs font-bold flex items-center gap-1.5 transition-colors"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>Sign Out</span>
@@ -151,47 +150,47 @@ export default function AdminDashboard() {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-12">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           
           {/* Overview Stats Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="glass-card p-5 rounded-2xl border border-slate-800 space-y-1">
-              <div className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Total Enquiries</div>
-              <div className="font-display font-bold text-3xl text-white">{totalInquiries}</div>
-              <div className="text-[11px] text-slate-400">All submissions</div>
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-1 shadow-2xs">
+              <div className="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Enquiries</div>
+              <div className="font-display font-bold text-3xl text-slate-900">{totalInquiries}</div>
+              <div className="text-[11px] text-slate-500">All submissions</div>
             </div>
 
-            <div className="glass-card p-5 rounded-2xl border border-amber-500/30 bg-amber-500/5 space-y-1">
-              <div className="text-amber-400 text-xs font-semibold uppercase tracking-wider">New Enquiries</div>
-              <div className="font-display font-bold text-3xl text-amber-300">{newInquiries}</div>
-              <div className="text-[11px] text-amber-400/80">Pending review</div>
+            <div className="bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-1 shadow-2xs">
+              <div className="text-amber-800 text-xs font-semibold uppercase tracking-wider">New Enquiries</div>
+              <div className="font-display font-bold text-3xl text-amber-900">{newInquiries}</div>
+              <div className="text-[11px] text-amber-700">Pending review</div>
             </div>
 
-            <div className="glass-card p-5 rounded-2xl border border-blue-500/30 bg-blue-500/5 space-y-1">
-              <div className="text-blue-400 text-xs font-semibold uppercase tracking-wider">In Progress</div>
-              <div className="font-display font-bold text-3xl text-blue-300">{inProgressInquiries}</div>
-              <div className="text-[11px] text-blue-400/80">Under evaluation</div>
+            <div className="bg-blue-50 p-5 rounded-2xl border border-blue-200 space-y-1 shadow-2xs">
+              <div className="text-blue-800 text-xs font-semibold uppercase tracking-wider">In Progress</div>
+              <div className="font-display font-bold text-3xl text-blue-900">{inProgressInquiries}</div>
+              <div className="text-[11px] text-blue-700">Under evaluation</div>
             </div>
 
-            <div className="glass-card p-5 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 space-y-1">
-              <div className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Resolved</div>
-              <div className="font-display font-bold text-3xl text-emerald-300">{resolvedInquiries}</div>
-              <div className="text-[11px] text-emerald-400/80">Completed</div>
+            <div className="bg-emerald-50 p-5 rounded-2xl border border-emerald-200 space-y-1 shadow-2xs">
+              <div className="text-emerald-800 text-xs font-semibold uppercase tracking-wider">Resolved</div>
+              <div className="font-display font-bold text-3xl text-emerald-900">{resolvedInquiries}</div>
+              <div className="text-[11px] text-emerald-700">Completed</div>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex flex-wrap items-center gap-3 border-b border-slate-800 pb-4">
+          <div className="flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4">
             <button
               onClick={() => setActiveTab('inquiries')}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
                 activeTab === 'inquiries'
-                  ? 'bg-brand-royal text-white shadow-lg shadow-brand-royal/25'
-                  : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-brand-cyan text-slate-900 shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              <Inbox className="w-4 h-4" />
+              <Inbox className="w-4 h-4 text-slate-900" />
               <span>Enquiries & Leads ({inquiries.length})</span>
             </button>
 
@@ -199,11 +198,11 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('applications')}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
                 activeTab === 'applications'
-                  ? 'bg-brand-royal text-white shadow-lg shadow-brand-royal/25'
-                  : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-brand-cyan text-slate-900 shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              <Users className="w-4 h-4" />
+              <Users className="w-4 h-4 text-slate-900" />
               <span>Job Applications ({applications.length})</span>
             </button>
 
@@ -211,11 +210,11 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('services')}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
                 activeTab === 'services'
-                  ? 'bg-brand-royal text-white shadow-lg shadow-brand-royal/25'
-                  : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-brand-cyan text-slate-900 shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              <Layers className="w-4 h-4" />
+              <Layers className="w-4 h-4 text-slate-900" />
               <span>Service Practices ({services.length})</span>
             </button>
 
@@ -223,11 +222,11 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab('jobs')}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
                 activeTab === 'jobs'
-                  ? 'bg-brand-royal text-white shadow-lg shadow-brand-royal/25'
-                  : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-brand-cyan text-slate-900 shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              <Briefcase className="w-4 h-4" />
+              <Briefcase className="w-4 h-4 text-slate-900" />
               <span>Active Job Openings ({jobs.length})</span>
             </button>
           </div>
@@ -236,11 +235,11 @@ export default function AdminDashboard() {
             <LoadingSkeleton count={3} />
           ) : (
             <div>
-              {/* TAB 1: ENQUIRIES & CHATBOT LEADS */}
+              {/* TAB 1: ENQUIRIES */}
               {activeTab === 'inquiries' && (
                 <div className="space-y-4">
                   {/* Search and Filters Bar */}
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 glass-card p-4 rounded-2xl border border-slate-800">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-2xs">
                     <div className="relative flex-1">
                       <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                       <input
@@ -248,18 +247,18 @@ export default function AdminDashboard() {
                         placeholder="Search by name, email, company, subject, or service..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-brand-royal"
+                        className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-cyan"
                       />
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                      <div className="flex items-center gap-1.5 text-xs text-slate-600">
                         <Filter className="w-3.5 h-3.5" />
                         <span>Status:</span>
                         <select
                           value={statusFilter}
                           onChange={(e) => setStatusFilter(e.target.value)}
-                          className="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-2.5 py-1.5 focus:outline-none"
+                          className="bg-white border border-slate-200 text-xs text-slate-900 rounded-lg px-2.5 py-1.5 focus:outline-none font-medium"
                         >
                           <option value="All">All Statuses</option>
                           <option value="New">New</option>
@@ -268,12 +267,12 @@ export default function AdminDashboard() {
                         </select>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                      <div className="flex items-center gap-1.5 text-xs text-slate-600">
                         <span>Source:</span>
                         <select
                           value={sourceFilter}
                           onChange={(e) => setSourceFilter(e.target.value)}
-                          className="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-2.5 py-1.5 focus:outline-none"
+                          className="bg-white border border-slate-200 text-xs text-slate-900 rounded-lg px-2.5 py-1.5 focus:outline-none font-medium"
                         >
                           <option value="All">All Sources</option>
                           <option value="Contact Form">Contact Form</option>
@@ -285,11 +284,11 @@ export default function AdminDashboard() {
 
                   {/* Table */}
                   {filteredInquiries.length === 0 ? (
-                    <div className="glass-card rounded-2xl p-8 text-center text-slate-400">No enquiries found matching your search or filters.</div>
+                    <div className="bg-slate-50 rounded-2xl p-8 text-center text-slate-500 border border-slate-200">No enquiries found matching your search or filters.</div>
                   ) : (
-                    <div className="overflow-x-auto glass-card rounded-2xl border border-slate-800 shadow-xl">
-                      <table className="w-full text-left text-xs text-slate-300">
-                        <thead className="bg-slate-900/90 text-slate-400 uppercase font-semibold border-b border-slate-800">
+                    <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
+                      <table className="w-full text-left text-xs text-slate-700">
+                        <thead className="bg-slate-50 text-slate-700 uppercase font-bold border-b border-slate-200">
                           <tr>
                             <th className="px-4 py-3.5">Source & ID</th>
                             <th className="px-4 py-3.5">Name</th>
@@ -301,41 +300,41 @@ export default function AdminDashboard() {
                             <th className="px-4 py-3.5 text-right">Actions</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-800/80">
+                        <tbody className="divide-y divide-slate-100">
                           {filteredInquiries.map((inq) => {
                             const isChatbot = inq.source === 'Chatbot';
                             return (
-                              <tr key={inq.id} className="hover:bg-slate-800/40 transition-colors">
+                              <tr key={inq.id} className="hover:bg-slate-50 transition-colors">
                                 <td className="px-4 py-3.5">
                                   <div className="flex items-center gap-2">
                                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 ${
-                                      isChatbot ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'bg-brand-royal/20 text-blue-300 border border-brand-royal/30'
+                                      isChatbot ? 'bg-cyan-100 text-slate-900 border border-cyan-300' : 'bg-slate-100 text-slate-900 border border-slate-200'
                                     }`}>
-                                      {isChatbot ? <MessageSquare className="w-3 h-3" /> : <Mail className="w-3 h-3" />}
+                                      {isChatbot ? <MessageSquare className="w-3 h-3 text-brand-cyan" /> : <Mail className="w-3 h-3 text-brand-pink" />}
                                       {inq.source || 'Contact Form'}
                                     </span>
-                                    <span className="text-slate-500 font-mono">#{inq.id}</span>
+                                    <span className="text-slate-400 font-mono">#{inq.id}</span>
                                   </div>
                                 </td>
 
-                                <td className="px-4 py-3.5 font-bold text-white">{inq.full_name}</td>
+                                <td className="px-4 py-3.5 font-bold text-slate-900">{inq.full_name}</td>
 
                                 <td className="px-4 py-3.5">
-                                  <a href={`mailto:${inq.email}`} className="text-slate-200 hover:text-brand-cyan hover:underline">{inq.email}</a>
-                                  <div className="text-[11px] text-slate-400">{inq.phone || "N/A"}</div>
+                                  <a href={`mailto:${inq.email}`} className="text-slate-900 hover:text-brand-cyan hover:underline font-semibold">{inq.email}</a>
+                                  <div className="text-[11px] text-slate-500">{inq.phone || "N/A"}</div>
                                 </td>
 
                                 <td className="px-4 py-3.5">
-                                  <div className="font-semibold text-white">{inq.company || "Individual / N/A"}</div>
-                                  <div className="text-[11px] text-brand-cyan truncate max-w-[140px]">{inq.service_interested}</div>
+                                  <div className="font-semibold text-slate-900">{inq.company || "Individual / N/A"}</div>
+                                  <div className="text-[11px] text-brand-cyan font-bold truncate max-w-[140px]">{inq.service_interested}</div>
                                 </td>
 
                                 <td className="px-4 py-3.5 max-w-xs">
-                                  <div className="font-semibold text-white truncate">{inq.subject || "No Subject"}</div>
-                                  <div className="text-[11px] text-slate-400 truncate">{inq.message}</div>
+                                  <div className="font-bold text-slate-900 truncate">{inq.subject || "No Subject"}</div>
+                                  <div className="text-[11px] text-slate-500 truncate">{inq.message}</div>
                                 </td>
 
-                                <td className="px-4 py-3.5 text-slate-400 whitespace-nowrap">
+                                <td className="px-4 py-3.5 text-slate-500 font-medium whitespace-nowrap">
                                   {new Date(inq.created_at).toLocaleDateString()}
                                 </td>
 
@@ -344,14 +343,14 @@ export default function AdminDashboard() {
                                     value={inq.status}
                                     onChange={(e) => handleStatusChange(inq.id, e.target.value)}
                                     className={`text-[11px] font-bold rounded-lg px-2.5 py-1 focus:outline-none cursor-pointer border ${
-                                      inq.status === 'New' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' :
-                                      inq.status === 'In Progress' ? 'bg-blue-500/20 text-blue-300 border-blue-500/40' :
-                                      'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                                      inq.status === 'New' ? 'bg-amber-100 text-amber-900 border-amber-300' :
+                                      inq.status === 'In Progress' ? 'bg-blue-100 text-blue-900 border-blue-300' :
+                                      'bg-emerald-100 text-emerald-900 border-emerald-300'
                                     }`}
                                   >
-                                    <option value="New" className="bg-slate-900 text-white">New</option>
-                                    <option value="In Progress" className="bg-slate-900 text-white">In Progress</option>
-                                    <option value="Resolved" className="bg-slate-900 text-white">Resolved</option>
+                                    <option value="New">New</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Resolved">Resolved</option>
                                   </select>
                                 </td>
 
@@ -360,14 +359,14 @@ export default function AdminDashboard() {
                                     <button
                                       onClick={() => setSelectedInquiry(inq)}
                                       title="View Details"
-                                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-brand-royal text-slate-300 hover:text-white transition-colors"
+                                      className="p-1.5 rounded-lg bg-slate-100 hover:bg-brand-cyan text-slate-700 hover:text-slate-900 transition-colors"
                                     >
-                                      <Eye className="w-3.5 h-3.5" />
+                                      <Eye className="w-3.5 h-3.5 text-slate-900" />
                                     </button>
                                     <button
                                       onClick={() => setDeleteConfirmId(inq.id)}
                                       title="Delete Inquiry"
-                                      className="p-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white transition-colors"
+                                      className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white transition-colors"
                                     >
                                       <Trash2 className="w-3.5 h-3.5" />
                                     </button>
@@ -386,13 +385,13 @@ export default function AdminDashboard() {
               {/* TAB 2: CANDIDATE APPLICATIONS */}
               {activeTab === 'applications' && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-white">Candidate Applications</h3>
+                  <h3 className="text-xl font-bold text-slate-900">Candidate Applications</h3>
                   {applications.length === 0 ? (
-                    <div className="glass-card rounded-2xl p-8 text-center text-slate-400">No candidate applications submitted yet.</div>
+                    <div className="bg-slate-50 rounded-2xl p-8 text-center text-slate-500 border border-slate-200">No candidate applications submitted yet.</div>
                   ) : (
-                    <div className="overflow-x-auto glass-card rounded-2xl border border-slate-800">
-                      <table className="w-full text-left text-xs text-slate-300">
-                        <thead className="bg-slate-900/90 text-slate-400 uppercase font-semibold border-b border-slate-800">
+                    <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
+                      <table className="w-full text-left text-xs text-slate-700">
+                        <thead className="bg-slate-50 text-slate-700 uppercase font-bold border-b border-slate-200">
                           <tr>
                             <th className="px-4 py-3">Applicant Name</th>
                             <th className="px-4 py-3">Email & Phone</th>
@@ -402,24 +401,24 @@ export default function AdminDashboard() {
                             <th className="px-4 py-3">Applied On</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-800">
+                        <tbody className="divide-y divide-slate-100">
                           {applications.map((app) => (
-                            <tr key={app.id} className="hover:bg-slate-800/40">
-                              <td className="px-4 py-3.5 font-bold text-white">{app.full_name}</td>
+                            <tr key={app.id} className="hover:bg-slate-50">
+                              <td className="px-4 py-3.5 font-bold text-slate-900">{app.full_name}</td>
                               <td className="px-4 py-3.5">
-                                <div>{app.email}</div>
-                                <div className="text-[11px] text-slate-400">{app.phone}</div>
+                                <div className="font-medium text-slate-900">{app.email}</div>
+                                <div className="text-[11px] text-slate-500">{app.phone}</div>
                               </td>
-                              <td className="px-4 py-3.5">Position #{app.job_id}</td>
+                              <td className="px-4 py-3.5 font-semibold">Position #{app.job_id}</td>
                               <td className="px-4 py-3.5">
                                 {app.linkedin_url ? (
-                                  <a href={app.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-brand-cyan hover:underline">
+                                  <a href={app.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-brand-cyan font-bold hover:underline">
                                     View Profile
                                   </a>
                                 ) : "N/A"}
                               </td>
-                              <td className="px-4 py-3.5 max-w-xs truncate">{app.cover_letter || "N/A"}</td>
-                              <td className="px-4 py-3.5 text-slate-400">{new Date(app.created_at).toLocaleDateString()}</td>
+                              <td className="px-4 py-3.5 max-w-xs truncate text-slate-600">{app.cover_letter || "N/A"}</td>
+                              <td className="px-4 py-3.5 text-slate-500 font-medium">{new Date(app.created_at).toLocaleDateString()}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -432,13 +431,13 @@ export default function AdminDashboard() {
               {/* TAB 3: SERVICES */}
               {activeTab === 'services' && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-white">Configured Service Practices</h3>
+                  <h3 className="text-xl font-bold text-slate-900">Configured Service Practices</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {services.map((s) => (
-                      <div key={s.id} className="glass-card p-5 rounded-2xl border border-slate-800 space-y-2">
-                        <span className="text-[10px] uppercase font-bold text-brand-cyan">{s.category}</span>
-                        <h4 className="font-bold text-white text-base">{s.title}</h4>
-                        <p className="text-xs text-slate-400 line-clamp-2">{s.short_description}</p>
+                      <div key={s.id} className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-xs">
+                        <span className="text-[10px] uppercase font-bold text-brand-yellow">{s.category}</span>
+                        <h4 className="font-bold text-slate-900 text-base">{s.title}</h4>
+                        <p className="text-xs text-slate-600 line-clamp-2">{s.short_description}</p>
                       </div>
                     ))}
                   </div>
@@ -448,16 +447,16 @@ export default function AdminDashboard() {
               {/* TAB 4: JOBS */}
               {activeTab === 'jobs' && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-white">Active Recruitment Openings</h3>
+                  <h3 className="text-xl font-bold text-slate-900">Active Recruitment Openings</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {jobs.map((j) => (
-                      <div key={j.id} className="glass-card p-5 rounded-2xl border border-slate-800 space-y-2">
+                      <div key={j.id} className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-xs">
                         <div className="flex justify-between">
-                          <span className="text-xs font-bold text-brand-cyan">{j.department}</span>
-                          <span className="text-[11px] text-slate-400">{j.location}</span>
+                          <span className="text-xs font-bold text-brand-pink">{j.department}</span>
+                          <span className="text-[11px] text-slate-500 font-medium">{j.location}</span>
                         </div>
-                        <h4 className="font-bold text-white text-base">{j.title}</h4>
-                        <p className="text-xs text-slate-400 line-clamp-2">{j.description}</p>
+                        <h4 className="font-bold text-slate-900 text-base">{j.title}</h4>
+                        <p className="text-xs text-slate-600 line-clamp-2">{j.description}</p>
                       </div>
                     ))}
                   </div>
@@ -472,68 +471,68 @@ export default function AdminDashboard() {
 
       {/* DETAIL VIEW MODAL */}
       {selectedInquiry && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-brand-navy border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-2xl w-full relative shadow-2xl space-y-6">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 max-w-2xl w-full relative shadow-2xl space-y-6">
             <button
               onClick={() => setSelectedInquiry(null)}
-              className="absolute top-6 right-6 p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white"
+              className="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3">
               <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                selectedInquiry.source === 'Chatbot' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'bg-brand-royal/20 text-blue-300 border border-brand-royal/30'
+                selectedInquiry.source === 'Chatbot' ? 'bg-cyan-100 text-slate-900 border border-cyan-300' : 'bg-pink-100 text-brand-pink border border-pink-200'
               }`}>
                 Source: {selectedInquiry.source || 'Contact Form'}
               </span>
-              <span className="text-xs text-slate-400">ID #{selectedInquiry.id}</span>
+              <span className="text-xs text-slate-500 font-semibold">ID #{selectedInquiry.id}</span>
             </div>
 
             <div>
-              <h3 className="font-display text-2xl font-bold text-white">{selectedInquiry.subject || "Enquiry Details"}</h3>
-              <p className="text-xs text-slate-400 mt-1">Submitted on {new Date(selectedInquiry.created_at).toLocaleString()}</p>
+              <h3 className="font-display text-2xl font-bold text-slate-900">{selectedInquiry.subject || "Enquiry Details"}</h3>
+              <p className="text-xs text-slate-500 mt-1">Submitted on {new Date(selectedInquiry.created_at).toLocaleString()}</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-slate-400 font-semibold block uppercase">Client Name</span>
-                <span className="text-white font-bold text-sm">{selectedInquiry.full_name}</span>
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-slate-500 font-bold block uppercase">Client Name</span>
+                <span className="text-slate-900 font-extrabold text-sm">{selectedInquiry.full_name}</span>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-slate-400 font-semibold block uppercase">Email Address</span>
-                <a href={`mailto:${selectedInquiry.email}`} className="text-brand-cyan font-semibold text-sm hover:underline">{selectedInquiry.email}</a>
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-slate-500 font-bold block uppercase">Email Address</span>
+                <a href={`mailto:${selectedInquiry.email}`} className="text-brand-cyan font-bold text-sm hover:underline">{selectedInquiry.email}</a>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-slate-400 font-semibold block uppercase">Phone Number</span>
-                <span className="text-white font-semibold text-sm">{selectedInquiry.phone || "N/A"}</span>
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-slate-500 font-bold block uppercase">Phone Number</span>
+                <span className="text-slate-900 font-semibold text-sm">{selectedInquiry.phone || "N/A"}</span>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="text-slate-400 font-semibold block uppercase">Company Name</span>
-                <span className="text-white font-semibold text-sm">{selectedInquiry.company || "N/A"}</span>
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-slate-500 font-bold block uppercase">Company Name</span>
+                <span className="text-slate-900 font-semibold text-sm">{selectedInquiry.company || "N/A"}</span>
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1 text-xs">
-              <span className="text-slate-400 font-semibold uppercase">Practice / Service Interested In</span>
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1 text-xs">
+              <span className="text-slate-500 font-bold uppercase">Practice / Service Interested In</span>
               <div className="text-brand-cyan font-bold text-sm">{selectedInquiry.service_interested}</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2 text-xs">
-              <span className="text-slate-400 font-semibold uppercase">Message Content</span>
-              <div className="text-slate-200 text-sm whitespace-pre-wrap leading-relaxed">{selectedInquiry.message}</div>
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+              <span className="text-slate-500 font-bold uppercase">Message Content</span>
+              <div className="text-slate-800 text-sm whitespace-pre-wrap leading-relaxed">{selectedInquiry.message}</div>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-              <div className="flex items-center gap-2 text-xs text-slate-400">
+            <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+              <div className="flex items-center gap-2 text-xs text-slate-600 font-semibold">
                 <span>Update Status:</span>
                 <select
                   value={selectedInquiry.status}
                   onChange={(e) => handleStatusChange(selectedInquiry.id, e.target.value)}
-                  className="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-3 py-1.5 focus:outline-none"
+                  className="bg-white border border-slate-300 text-xs text-slate-900 rounded-lg px-3 py-1.5 focus:outline-none font-bold"
                 >
                   <option value="New">New</option>
                   <option value="In Progress">In Progress</option>
@@ -543,7 +542,7 @@ export default function AdminDashboard() {
 
               <button
                 onClick={() => setSelectedInquiry(null)}
-                className="px-5 py-2 rounded-xl bg-slate-800 text-white font-semibold text-xs hover:bg-slate-700"
+                className="btn-outline px-5 py-2 text-xs font-semibold"
               >
                 Close View
               </button>
@@ -554,26 +553,26 @@ export default function AdminDashboard() {
 
       {/* DELETE CONFIRMATION MODAL */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-brand-navy border border-slate-700 rounded-3xl p-6 max-w-md w-full text-center space-y-4 shadow-2xl">
-            <div className="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center mx-auto">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full text-center space-y-4 shadow-2xl">
+            <div className="w-12 h-12 rounded-full bg-rose-100 text-rose-600 border border-rose-200 flex items-center justify-center mx-auto">
               <Trash2 className="w-6 h-6" />
             </div>
-            <h3 className="font-display text-xl font-bold text-white">Delete Enquiry #{deleteConfirmId}?</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <h3 className="font-display text-xl font-bold text-slate-900">Delete Enquiry #{deleteConfirmId}?</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
               Are you sure you want to delete this enquiry? This action cannot be undone.
             </p>
             <div className="flex justify-center gap-3 pt-2">
               <button
                 onClick={() => setDeleteConfirmId(null)}
-                className="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-semibold text-xs"
+                className="btn-outline px-5 py-2.5 text-xs font-semibold"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDeleteInquiry}
                 disabled={deleting}
-                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs disabled:opacity-50"
+                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs disabled:opacity-50 transition-colors"
               >
                 {deleting ? "Deleting..." : "Confirm Delete"}
               </button>

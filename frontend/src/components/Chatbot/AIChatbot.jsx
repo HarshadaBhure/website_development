@@ -45,7 +45,6 @@ export default function AIChatbot() {
     setLoading(true);
 
     try {
-      // Map message format for API history
       const historyPayload = newMessages.map(m => ({
         role: m.role,
         content: m.content
@@ -87,12 +86,11 @@ export default function AIChatbot() {
   };
 
   const formatMessageText = (text) => {
-    // Basic text formatting for bold (**text**), bullets (• or -) and linebreaks
     const lines = text.split('\n');
     return lines.map((line, lIdx) => {
       const formattedParts = line.split(/(\*\*.*?\*\*)/g).map((part, pIdx) => {
         if (part.startsWith('**') && part.endsWith('**')) {
-          return <strong key={pIdx} className="font-semibold text-white">{part.slice(2, -2)}</strong>;
+          return <strong key={pIdx} className="font-semibold text-slate-900">{part.slice(2, -2)}</strong>;
         }
         return part;
       });
@@ -112,16 +110,16 @@ export default function AIChatbot() {
       <div className="fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative group p-4 rounded-full bg-gradient-to-r from-brand-royal via-blue-600 to-brand-cyan text-white shadow-2xl hover:shadow-brand-cyan/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center border border-white/20"
+          className="relative group p-4 rounded-full bg-gradient-to-r from-brand-pink via-brand-cyan to-brand-yellow text-white shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center border border-white/20"
           aria-label="Toggle AI Assistant Chat"
         >
           {isOpen ? (
-            <X className="w-6 h-6" />
+            <X className="w-6 h-6 text-slate-900" />
           ) : (
             <>
-              <MessageSquare className="w-6 h-6" />
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-brand-cyan rounded-full border-2 border-brand-dark animate-ping"></span>
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-brand-cyan rounded-full border-2 border-brand-dark"></span>
+              <MessageSquare className="w-6 h-6 text-white" />
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-brand-pink rounded-full border-2 border-white animate-ping" />
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-brand-pink rounded-full border-2 border-white" />
             </>
           )}
         </button>
@@ -135,23 +133,23 @@ export default function AIChatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-h-[620px] h-[calc(100vh-120px)] bg-brand-dark/95 backdrop-blur-2xl border border-slate-700/80 rounded-3xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-h-[620px] h-[calc(100vh-120px)] bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-3xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 sm:p-5 bg-gradient-to-r from-brand-navy via-slate-900 to-brand-navy border-b border-slate-800 flex items-center justify-between">
+            <div className="p-4 sm:p-5 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-royal to-brand-cyan flex items-center justify-center text-white shadow-md">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-pink to-brand-cyan flex items-center justify-center text-white shadow-md">
                     <Bot className="w-5 h-5" />
                   </div>
-                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-brand-navy"></span>
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-slate-900" />
                 </div>
                 <div>
                   <h3 className="font-display font-bold text-white text-base flex items-center gap-1.5">
                     Swaraj AI Assistant
-                    <Sparkles className="w-3.5 h-3.5 text-brand-cyan" />
+                    <Sparkles className="w-3.5 h-3.5 text-brand-pink" />
                   </h3>
-                  <p className="text-[11px] text-slate-400">Enterprise Solutions & Consultation</p>
+                  <p className="text-[11px] text-slate-400">Enterprise Solutions &amp; Consultation</p>
                 </div>
               </div>
 
@@ -159,14 +157,14 @@ export default function AIChatbot() {
                 <button
                   onClick={handleClearChat}
                   title="Clear Chat"
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
                   title="Close Chat"
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -174,13 +172,13 @@ export default function AIChatbot() {
             </div>
 
             {/* Quick Actions Bar */}
-            <div className="px-4 py-2 bg-slate-900/60 border-b border-slate-800/80 overflow-x-auto no-scrollbar flex items-center gap-2 text-xs">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold shrink-0">Quick Ask:</span>
+            <div className="px-4 py-2 bg-slate-50 border-b border-slate-200 overflow-x-auto no-scrollbar flex items-center gap-2 text-xs">
+              <span className="text-[10px] text-slate-500 uppercase font-semibold shrink-0">Quick Ask:</span>
               {QUICK_ACTIONS.map((action, i) => (
                 <button
                   key={i}
                   onClick={() => handleSendMessage(action)}
-                  className="shrink-0 px-2.5 py-1 rounded-full bg-slate-800/90 border border-slate-700/80 text-slate-300 hover:text-white hover:border-brand-cyan transition-colors"
+                  className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:text-brand-pink hover:border-brand-pink/50 transition-colors shadow-2xs"
                 >
                   {action}
                 </button>
@@ -188,14 +186,14 @@ export default function AIChatbot() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 text-xs text-slate-200">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 text-xs text-slate-800 bg-slate-50/50">
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
                   className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {msg.role === 'assistant' && (
-                    <div className="w-7 h-7 rounded-xl bg-brand-royal/20 border border-brand-royal/40 flex items-center justify-center text-brand-cyan shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-xl bg-pink-100 border border-pink-200 flex items-center justify-center text-brand-pink shrink-0 mt-0.5">
                       <Bot className="w-4 h-4" />
                     </div>
                   )}
@@ -203,19 +201,19 @@ export default function AIChatbot() {
                   <div
                     className={`max-w-[82%] p-3.5 rounded-2xl leading-relaxed shadow-sm ${
                       msg.role === 'user'
-                        ? 'bg-gradient-to-r from-brand-royal to-blue-600 text-white rounded-br-none'
-                        : 'glass-card border border-slate-800 text-slate-200 rounded-bl-none'
+                        ? 'bg-brand-pink text-white rounded-br-none font-medium'
+                        : 'bg-white border border-slate-200/90 text-slate-800 rounded-bl-none shadow-2xs'
                     }`}
                   >
                     {formatMessageText(msg.content)}
 
                     {msg.isFallback && (
-                      <div className="mt-3 pt-2 border-t border-slate-700/50">
+                      <div className="mt-3 pt-2 border-t border-slate-200">
                         <a
                           href="/contact"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30 text-xs font-semibold hover:bg-brand-cyan hover:text-slate-900 transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-100 text-slate-900 border border-cyan-300 text-xs font-semibold hover:bg-cyan-200 transition-colors"
                         >
-                          <PhoneCall className="w-3.5 h-3.5" />
+                          <PhoneCall className="w-3.5 h-3.5 text-brand-cyan" />
                           <span>Contact Us Page</span>
                         </a>
                       </div>
@@ -223,7 +221,7 @@ export default function AIChatbot() {
                   </div>
 
                   {msg.role === 'user' && (
-                    <div className="w-7 h-7 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-xl bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-700 shrink-0 mt-0.5">
                       <User className="w-4 h-4" />
                     </div>
                   )}
@@ -233,15 +231,15 @@ export default function AIChatbot() {
               {/* Typing Indicator */}
               {loading && (
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-xl bg-brand-royal/20 border border-brand-royal/40 flex items-center justify-center text-brand-cyan shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-pink-100 border border-pink-200 flex items-center justify-center text-brand-pink shrink-0">
                     <Bot className="w-4 h-4" />
                   </div>
-                  <div className="glass-card px-4 py-3 rounded-2xl border border-slate-800 text-slate-400 flex items-center gap-2">
+                  <div className="bg-white px-4 py-3 rounded-2xl border border-slate-200 text-slate-500 flex items-center gap-2 shadow-2xs">
                     <span className="text-[11px] italic">AI Assistant is typing</span>
                     <span className="flex gap-1">
-                      <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce"></span>
-                      <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                      <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                      <span className="w-1.5 h-1.5 bg-brand-pink rounded-full animate-bounce" />
+                      <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce [animation-delay:0.2s]" />
+                      <span className="w-1.5 h-1.5 bg-brand-yellow rounded-full animate-bounce [animation-delay:0.4s]" />
                     </span>
                   </div>
                 </div>
@@ -250,9 +248,9 @@ export default function AIChatbot() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Error Banner if any */}
+            {/* Error Banner */}
             {error && (
-              <div className="px-4 py-2 bg-rose-500/10 border-t border-rose-500/30 text-rose-300 text-[11px] flex items-center gap-2">
+              <div className="px-4 py-2 bg-rose-50 border-t border-rose-200 text-rose-700 text-[11px] flex items-center gap-2">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>{error}</span>
               </div>
@@ -264,7 +262,7 @@ export default function AIChatbot() {
                 e.preventDefault();
                 handleSendMessage();
               }}
-              className="p-3 bg-brand-navy border-t border-slate-800 flex items-center gap-2"
+              className="p-3 bg-white border-t border-slate-200 flex items-center gap-2"
             >
               <input
                 type="text"
@@ -272,12 +270,12 @@ export default function AIChatbot() {
                 value={inputMsg}
                 onChange={(e) => setInputMsg(e.target.value)}
                 disabled={loading}
-                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-brand-royal disabled:opacity-50"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-pink disabled:opacity-50 transition-colors placeholder:text-slate-400"
               />
               <button
                 type="submit"
                 disabled={loading || !inputMsg.trim()}
-                className="p-2.5 rounded-xl bg-gradient-to-tr from-brand-royal to-brand-cyan text-white disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105 transition-all"
+                className="p-2.5 rounded-xl bg-brand-pink text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-pink-700 transition-all shadow-md"
                 aria-label="Send Message"
               >
                 <Send className="w-4 h-4" />

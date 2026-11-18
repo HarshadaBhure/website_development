@@ -1,10 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useInView } from 'framer-motion';
 
-export default function StatCounter({ value, label, suffix = "+", prefix = "" }) {
+export default function StatCounter({ value, label, suffix = "+", prefix = "", accent = "pink" }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  const textGradientMap = {
+    pink: "bg-gradient-to-r from-brand-pink to-pink-500",
+    cyan: "bg-gradient-to-r from-brand-cyan to-cyan-500",
+    yellow: "bg-gradient-to-r from-[#B0B513] to-brand-yellow",
+  };
+
+  const hoverBorderMap = {
+    pink: "hover:border-brand-pink/50 hover:shadow-soft-pink",
+    cyan: "hover:border-brand-cyan/50 hover:shadow-soft-cyan",
+    yellow: "hover:border-brand-yellow/60 hover:shadow-soft-yellow",
+  };
+
+  const gradientTextClass = textGradientMap[accent] || textGradientMap.pink;
+  const hoverClass = hoverBorderMap[accent] || hoverBorderMap.pink;
 
   useEffect(() => {
     if (!isInView) return;
@@ -31,12 +46,11 @@ export default function StatCounter({ value, label, suffix = "+", prefix = "" })
   }, [isInView, value]);
 
   return (
-    <div ref={ref} className="text-center p-6 rounded-2xl glass-card relative overflow-hidden group">
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-royal/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-      <div className="font-display text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-brand-cyan mb-2">
+    <div ref={ref} className={`text-center p-6 rounded-2xl relative overflow-hidden group bg-white border border-slate-200/80 shadow-sm ${hoverClass} transition-all duration-300`}>
+      <div className={`font-display text-4xl sm:text-5xl font-black text-transparent bg-clip-text ${gradientTextClass} mb-2 relative z-10`}>
         {prefix}{isInView ? count : 0}{suffix}
       </div>
-      <div className="text-xs sm:text-sm font-semibold text-slate-300 uppercase tracking-wider">
+      <div className="text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-wider relative z-10">
         {label}
       </div>
     </div>

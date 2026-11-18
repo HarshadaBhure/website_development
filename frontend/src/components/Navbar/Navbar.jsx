@@ -1,38 +1,64 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ArrowRight, ChevronDown, ChevronRight, Phone, Mail, Building2, Users, Handshake } from 'lucide-react';
+import { 
+  Menu, 
+  X, 
+  ArrowRight, 
+  ChevronRight, 
+  ChevronDown, 
+  Phone, 
+  Mail, 
+  Linkedin, 
+  Twitter, 
+  Facebook,
+  Building2,
+  Users,
+  Handshake,
+  Sparkles,
+  MapPin
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BrandLogo from '../Common/BrandLogo';
+import ExpertModal from '../Common/ExpertModal';
 
-const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'About Us', path: '/about' },
-  { name: 'Services', path: '/services' },
-  { name: 'Industries', path: '/industries' },
-  { name: 'Solutions', path: '/solutions' },
-  { name: 'Technologies', path: '/technologies' },
-  { name: 'Case Studies', path: '/case-studies' },
-  { name: 'Careers', path: '/careers' },
+const socialLinks = [
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/swaraj-asia/', icon: Linkedin },
+  { name: 'Twitter', href: 'https://twitter.com/', icon: Twitter },
+  { name: 'Facebook', href: 'https://facebook.com/', icon: Facebook },
 ];
 
-const CONTACT_OPTIONS = [
+const contactDropdownItems = [
   {
-    name: 'For Companies',
+    title: 'General Inquiries',
+    description: 'Corporate headquarters, email, and direct telephone lines',
+    path: '/contact',
+    icon: MapPin,
+  },
+  {
+    title: 'Talk to an Expert',
+    description: 'Schedule a tailored architecture & staffing consultation session',
+    path: '/contact/expert',
+    isActionModal: true,
+    icon: Sparkles,
+    badge: 'Popular',
+  },
+  {
+    title: 'For Companies',
+    description: 'Request enterprise tech talent and bespoke Oracle solutions',
     path: '/contact/companies',
-    icon: <Building2 className="w-4 h-4" />,
-    desc: 'Enterprise enquiries & solutions',
+    icon: Building2,
   },
   {
-    name: 'For Candidates',
+    title: 'For Candidates',
+    description: 'Submit your profile for top enterprise tech opportunities',
     path: '/contact/candidates',
-    icon: <Users className="w-4 h-4" />,
-    desc: 'Join our team — career enquiries',
+    icon: Users,
   },
   {
-    name: 'For Partnerships',
+    title: 'For Partnerships',
+    description: 'Explore strategic alliances, vendor tie-ups, and ecosystem programs',
     path: '/contact/partnerships',
-    icon: <Handshake className="w-4 h-4" />,
-    desc: 'Strategic & technology partnerships',
+    icon: Handshake,
   },
 ];
 
@@ -40,11 +66,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
-  const [mobileContactOpen, setMobileContactOpen] = useState(false);
+  const [mobileContactExpanded, setMobileContactExpanded] = useState(false);
+  const [expertModalOpen, setExpertModalOpen] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
-  const dropdownRef = useRef(null);
-  const closeTimerRef = useRef(null);
+  const dropdownTimerRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -52,164 +79,269 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close menus on page route transition
   useEffect(() => {
     setMobileMenuOpen(false);
     setContactDropdownOpen(false);
-    setMobileContactOpen(false);
   }, [location.pathname]);
 
-  // Keyboard: close dropdown on Escape
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') setContactDropdownOpen(false);
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  const handleDropdownMouseEnter = () => {
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  const handleDropdownEnter = () => {
+    if (dropdownTimerRef.current) clearTimeout(dropdownTimerRef.current);
     setContactDropdownOpen(true);
   };
 
-  const handleDropdownMouseLeave = () => {
-    closeTimerRef.current = setTimeout(() => setContactDropdownOpen(false), 120);
+  const handleDropdownLeave = () => {
+    dropdownTimerRef.current = setTimeout(() => {
+      setContactDropdownOpen(false);
+    }, 180);
   };
 
+  const isHomeActive = location.pathname === '/';
+  const isServicesActive = location.pathname.startsWith('/services');
+  const isCareersActive = location.pathname.startsWith('/careers');
   const isContactActive = location.pathname.startsWith('/contact');
 
   return (
     <>
-      {/* Top Corporate Info Bar */}
-      <div className="bg-brand-navy border-b border-slate-800 text-xs text-slate-400 py-2 hidden md:block z-50 relative">
+      {/* ── Top Info Strip (Phone, Email, Social Channels) ── */}
+      <div className="bg-slate-900 border-b border-slate-800 text-xs text-slate-300 py-2 hidden md:block z-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center space-x-6">
-            <a href="tel:+918014502502" className="flex items-center gap-2 hover:text-brand-cyan transition-colors">
-              <Phone className="w-3.5 h-3.5 text-brand-royal" />
-              <span>+91 80145 02502</span>
+            <a
+              href="tel:+918014503503"
+              className="flex items-center gap-1.5 hover:text-brand-pink transition-colors font-medium"
+            >
+              <Phone className="w-3.5 h-3.5 text-brand-pink" />
+              <span>+91 80145 03503</span>
             </a>
-            <a href="mailto:sales@swarajasia.com" className="flex items-center gap-2 hover:text-brand-cyan transition-colors">
-              <Mail className="w-3.5 h-3.5 text-brand-royal" />
+            <span className="text-slate-600">|</span>
+            <a
+              href="mailto:sales@swarajasia.com"
+              className="flex items-center gap-1.5 hover:text-brand-pink transition-colors font-medium"
+            >
+              <Mail className="w-3.5 h-3.5 text-brand-pink" />
               <span>sales@swarajasia.com</span>
             </a>
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-royal/10 text-brand-royal text-[11px] font-medium border border-brand-royal/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-cyan animate-pulse" />
-              Enterprise SAP &amp; Cloud Partners
-            </span>
-            <Link to="/admin/login" className="hover:text-white transition-colors">Admin Portal</Link>
+
+          <div className="flex items-center space-x-3">
+            <span className="text-slate-400 text-[11px] font-medium mr-1">Connect with us:</span>
+            {socialLinks.map((s) => {
+              const Icon = s.icon;
+              return (
+                <a
+                  key={s.name}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Swaraj Asia on ${s.name}`}
+                  className="w-6 h-6 rounded-md bg-slate-800 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-pink hover:border-brand-pink transition-all"
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Main Sticky Navbar */}
+      {/* ── Main Sticky Header ── */}
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
           scrolled
-            ? 'bg-brand-dark/90 backdrop-blur-md border-b border-slate-800/80 shadow-2xl py-3.5'
-            : 'bg-brand-dark/50 backdrop-blur-sm py-5'
+            ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm py-3'
+            : 'bg-white border-b border-slate-100 py-4 lg:py-4.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          
+          {/* 1. Left Visual Anchor: Official Prominent Brand Logo */}
+          <div className="shrink-0 flex items-center">
+            <BrandLogo variant="light" size="navbar" />
+          </div>
 
-          {/* Logo */}
-          <BrandLogo />
+          {/* 2. Center: Desktop Navigation Tabs (17-18px font size, semibold, balanced spacing) */}
+          <nav 
+            className="hidden lg:flex items-center gap-7 xl:gap-9"
+            aria-label="Main Navigation"
+          >
+            {/* Tab: Home */}
+            <Link
+              to="/"
+              className={`text-[17px] xl:text-[18px] font-semibold transition-colors duration-200 relative py-1.5 ${
+                isHomeActive 
+                  ? 'text-brand-pink font-bold' 
+                  : 'text-slate-700 hover:text-brand-pink'
+              }`}
+            >
+              <span>Home</span>
+              {isHomeActive && (
+                <motion.div
+                  layoutId="activeNavIndicator"
+                  className="absolute bottom-0 left-0 right-0 h-[3px] bg-brand-pink rounded-full"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.path || (link.path !== '/' && location.pathname.startsWith(link.path));
-              return (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all relative ${
-                    isActive
-                      ? 'text-white font-semibold'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                  }`}
-                >
-                  {link.name}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeIndicator"
-                      className="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-brand-royal to-brand-cyan rounded-full"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
+            {/* Tab: Services */}
+            <Link
+              to="/services"
+              className={`text-[17px] xl:text-[18px] font-semibold transition-colors duration-200 relative py-1.5 ${
+                isServicesActive 
+                  ? 'text-brand-pink font-bold' 
+                  : 'text-slate-700 hover:text-brand-pink'
+              }`}
+            >
+              <span>Services</span>
+              {isServicesActive && (
+                <motion.div
+                  layoutId="activeNavIndicator"
+                  className="absolute bottom-0 left-0 right-0 h-[3px] bg-brand-pink rounded-full"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
 
-            {/* Contact Us Dropdown */}
+            {/* Tab: Careers */}
+            <Link
+              to="/careers"
+              className={`text-[17px] xl:text-[18px] font-semibold transition-colors duration-200 relative py-1.5 ${
+                isCareersActive 
+                  ? 'text-brand-pink font-bold' 
+                  : 'text-slate-700 hover:text-brand-pink'
+              }`}
+            >
+              <span>Careers</span>
+              {isCareersActive && (
+                <motion.div
+                  layoutId="activeNavIndicator"
+                  className="absolute bottom-0 left-0 right-0 h-[3px] bg-brand-pink rounded-full"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
+
+            {/* Tab: Contact Us with Interactive Dropdown */}
             <div
-              ref={dropdownRef}
-              className="relative"
-              onMouseEnter={handleDropdownMouseEnter}
-              onMouseLeave={handleDropdownMouseLeave}
+              className="relative py-1.5"
+              onMouseEnter={handleDropdownEnter}
+              onMouseLeave={handleDropdownLeave}
             >
               <button
-                aria-haspopup="true"
+                type="button"
+                onClick={() => setContactDropdownOpen(!contactDropdownOpen)}
                 aria-expanded={contactDropdownOpen}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all relative ${
-                  isContactActive
-                    ? 'text-white font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                aria-haspopup="true"
+                className={`text-[17px] xl:text-[18px] font-semibold transition-colors duration-200 flex items-center gap-1.5 focus:outline-none ${
+                  isContactActive 
+                    ? 'text-brand-pink font-bold' 
+                    : 'text-slate-700 hover:text-brand-pink'
                 }`}
               >
-                Contact Us
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${contactDropdownOpen ? 'rotate-180' : ''}`}
+                <span>Contact Us</span>
+                <ChevronDown 
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    contactDropdownOpen ? 'rotate-180 text-brand-pink' : 'text-slate-400'
+                  }`} 
                 />
-                {isContactActive && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-brand-royal to-brand-cyan rounded-full"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
               </button>
 
+              {isContactActive && (
+                <motion.div
+                  layoutId="activeNavIndicator"
+                  className="absolute bottom-0 left-0 right-5 h-[3px] bg-brand-pink rounded-full"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+
+              {/* Dropdown Menu Overlay */}
               <AnimatePresence>
                 {contactDropdownOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full right-0 mt-2 w-64 bg-brand-navy/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl shadow-black/40 overflow-hidden z-50"
-                    onMouseEnter={handleDropdownMouseEnter}
-                    onMouseLeave={handleDropdownMouseLeave}
+                    exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-80 xl:w-88 z-50"
                   >
-                    <div className="p-2">
-                      {CONTACT_OPTIONS.map((opt) => {
-                        const isOptActive = location.pathname === opt.path;
-                        return (
-                          <Link
-                            key={opt.path}
-                            to={opt.path}
-                            className={`flex items-start gap-3 px-3 py-3 rounded-xl transition-all group ${
-                              isOptActive
-                                ? 'bg-brand-royal/20 text-white'
-                                : 'hover:bg-slate-800/60 text-slate-300 hover:text-white'
-                            }`}
-                          >
-                            <div className="w-8 h-8 rounded-lg bg-brand-royal/20 border border-brand-royal/30 flex items-center justify-center text-brand-cyan shrink-0 group-hover:scale-110 transition-transform">
-                              {opt.icon}
-                            </div>
-                            <div>
-                              <div className="text-sm font-semibold">{opt.name}</div>
-                              <div className="text-[11px] text-slate-500 mt-0.5">{opt.desc}</div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                    <div className="border-t border-slate-800 px-4 py-2.5 bg-slate-900/60">
-                      <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
-                        Response within 24 hours · sales@swarajasia.com
-                      </span>
+                    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xl shadow-slate-900/10 p-2 overflow-hidden backdrop-blur-md">
+                      <div className="p-2 border-b border-slate-100 bg-slate-50/70 rounded-xl mb-1.5">
+                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                          Direct Communication Portals
+                        </p>
+                      </div>
+
+                      <div className="space-y-1">
+                        {contactDropdownItems.map((item) => {
+                          const Icon = item.icon;
+                          const isItemActive = location.pathname === item.path;
+
+                          if (item.isActionModal) {
+                            return (
+                              <button
+                                key={item.title}
+                                type="button"
+                                onClick={() => {
+                                  setContactDropdownOpen(false);
+                                  setExpertModalOpen(true);
+                                }}
+                                className="w-full text-left flex items-start gap-3 p-2.5 rounded-xl transition-all group hover:bg-pink-50/60"
+                              >
+                                <div className="w-8 h-8 rounded-lg bg-pink-100/70 text-brand-pink flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-pink group-hover:text-white transition-colors">
+                                  <Icon className="w-4 h-4" />
+                                </div>
+                                <div className="flex-grow min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm font-semibold text-slate-900 group-hover:text-brand-pink transition-colors">
+                                      {item.title}
+                                    </span>
+                                    {item.badge && (
+                                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-brand-pink text-white">
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </button>
+                            );
+                          }
+
+                          return (
+                            <Link
+                              key={item.title}
+                              to={item.path}
+                              onClick={() => setContactDropdownOpen(false)}
+                              className={`flex items-start gap-3 p-2.5 rounded-xl transition-all group ${
+                                isItemActive 
+                                  ? 'bg-pink-50/80 text-brand-pink' 
+                                  : 'hover:bg-slate-50 text-slate-700'
+                              }`}
+                            >
+                              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                                isItemActive 
+                                  ? 'bg-brand-pink text-white' 
+                                  : 'bg-slate-100 text-slate-600 group-hover:bg-brand-pink group-hover:text-white'
+                              }`}>
+                                <Icon className="w-4 h-4" />
+                              </div>
+                              <div className="flex-grow min-w-0">
+                                <span className={`text-sm font-semibold block transition-colors ${
+                                  isItemActive ? 'text-brand-pink' : 'text-slate-900 group-hover:text-brand-pink'
+                                }`}>
+                                  {item.title}
+                                </span>
+                                <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -217,37 +349,40 @@ export default function Navbar() {
             </div>
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* 3. Right: Primary CTA Action — Talk to an Expert */}
+          <div className="hidden lg:flex items-center">
             <button
-              onClick={() => navigate('/contact/companies')}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-royal to-blue-600 hover:from-blue-600 hover:to-brand-royal text-white text-sm font-semibold shadow-lg shadow-brand-royal/25 hover:shadow-brand-royal/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              onClick={() => setExpertModalOpen(true)}
+              className="group relative inline-flex items-center gap-2.5 px-6 py-2.5 xl:py-3 rounded-xl bg-brand-pink text-white font-semibold text-[15px] xl:text-[16px] shadow-md shadow-pink-500/20 hover:bg-[#c20279] hover:shadow-lg hover:shadow-pink-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-pink"
+              aria-label="Talk to an Expert Consultation"
             >
               <span>Talk to an Expert</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
             </button>
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="lg:hidden flex items-center gap-3">
+          {/* 4. Mobile Controls (Quick CTA + Menu Toggle) */}
+          <div className="lg:hidden flex items-center gap-2">
             <button
-              onClick={() => navigate('/contact/companies')}
-              className="px-3 py-1.5 rounded-lg bg-brand-royal/20 text-brand-royal border border-brand-royal/30 text-xs font-semibold"
+              onClick={() => setExpertModalOpen(true)}
+              className="px-3.5 py-2 rounded-xl bg-brand-pink text-white text-xs font-semibold shadow-sm hover:bg-[#c20279] active:scale-95 transition-all flex items-center gap-1.5"
             >
-              Contact
+              <span>Talk to an Expert</span>
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-slate-800 text-slate-200 hover:text-white focus:outline-none"
+              className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 transition-colors"
               aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
+
         </div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* ── Mobile Drawer Menu ── */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -255,91 +390,162 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="lg:hidden fixed inset-x-0 top-[60px] bg-brand-dark/95 backdrop-blur-xl border-b border-slate-800 z-30 overflow-hidden shadow-2xl"
+            className="lg:hidden fixed inset-x-0 top-[64px] bg-white border-b border-slate-200 z-30 overflow-hidden shadow-2xl max-h-[calc(100vh-64px)] overflow-y-auto"
           >
-            <div className="px-4 pt-4 pb-8 space-y-2 max-w-md mx-auto">
-              {navLinks.map((link) => {
-                const isActive = location.pathname === link.path || (link.path !== '/' && location.pathname.startsWith(link.path));
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.path}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium transition-all ${
-                      isActive
-                        ? 'bg-brand-royal/15 text-brand-cyan border border-brand-royal/30'
-                        : 'text-slate-300 hover:bg-slate-800/60 hover:text-white'
-                    }`}
-                  >
-                    <span>{link.name}</span>
-                    <ChevronRight className="w-4 h-4 text-slate-500" />
-                  </Link>
-                );
-              })}
+            <div className="px-5 pt-4 pb-8 space-y-2 max-w-md mx-auto">
+              {/* Home */}
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all ${
+                  isHomeActive
+                    ? 'bg-pink-50 text-brand-pink font-bold border border-pink-100'
+                    : 'text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                <span>Home</span>
+                <ChevronRight className="w-4 h-4 text-slate-400" />
+              </Link>
 
-              {/* Mobile Contact Us Accordion */}
-              <div className="rounded-xl border border-slate-800 overflow-hidden">
+              {/* Services */}
+              <Link
+                to="/services"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all ${
+                  isServicesActive
+                    ? 'bg-pink-50 text-brand-pink font-bold border border-pink-100'
+                    : 'text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                <span>Services</span>
+                <ChevronRight className="w-4 h-4 text-slate-400" />
+              </Link>
+
+              {/* Careers */}
+              <Link
+                to="/careers"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all ${
+                  isCareersActive
+                    ? 'bg-pink-50 text-brand-pink font-bold border border-pink-100'
+                    : 'text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                <span>Careers</span>
+                <ChevronRight className="w-4 h-4 text-slate-400" />
+              </Link>
+
+              {/* Contact Us Accordion */}
+              <div className="rounded-xl border border-slate-100 overflow-hidden">
                 <button
-                  onClick={() => setMobileContactOpen(!mobileContactOpen)}
-                  className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-all ${
+                  type="button"
+                  onClick={() => setMobileContactExpanded(!mobileContactExpanded)}
+                  className={`w-full flex items-center justify-between px-4 py-3 text-base font-semibold transition-all ${
                     isContactActive
-                      ? 'bg-brand-royal/15 text-brand-cyan'
-                      : 'text-slate-300 hover:bg-slate-800/60 hover:text-white'
+                      ? 'bg-pink-50 text-brand-pink font-bold'
+                      : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>Contact Us</span>
-                  <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${mobileContactOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                    mobileContactExpanded ? 'rotate-180 text-brand-pink' : 'text-slate-400'
+                  }`} />
                 </button>
-                <AnimatePresence>
-                  {mobileContactOpen && (
-                    <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: 'auto' }}
-                      exit={{ height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden bg-slate-900/60"
-                    >
-                      {CONTACT_OPTIONS.map((opt) => (
+
+                {mobileContactExpanded && (
+                  <div className="bg-slate-50/70 p-2 space-y-1 border-t border-slate-100">
+                    {contactDropdownItems.map((item) => {
+                      const Icon = item.icon;
+                      if (item.isActionModal) {
+                        return (
+                          <button
+                            key={item.title}
+                            type="button"
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                              setExpertModalOpen(true);
+                            }}
+                            className="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-brand-pink hover:bg-pink-50/60 transition-all"
+                          >
+                            <Icon className="w-4 h-4 text-brand-pink" />
+                            <span>{item.title}</span>
+                          </button>
+                        );
+                      }
+                      return (
                         <Link
-                          key={opt.path}
-                          to={opt.path}
-                          className="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-slate-800/50 border-t border-slate-800/60 transition-colors"
+                          key={item.title}
+                          to={item.path}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-brand-pink hover:bg-pink-50/60 transition-all"
                         >
-                          <div className="w-7 h-7 rounded-lg bg-brand-royal/20 flex items-center justify-center text-brand-cyan shrink-0">
-                            {opt.icon}
-                          </div>
-                          <div>
-                            <div className="font-semibold">{opt.name}</div>
-                            <div className="text-[11px] text-slate-500">{opt.desc}</div>
-                          </div>
+                          <Icon className="w-4 h-4 text-brand-pink" />
+                          <span>{item.title}</span>
                         </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
+              {/* Mobile CTA Button & Footer Contacts */}
+              <div className="pt-4 border-t border-slate-200 flex flex-col gap-3">
                 <button
-                  onClick={() => navigate('/contact/companies')}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-brand-royal to-brand-cyan text-white font-semibold text-sm shadow-lg shadow-brand-royal/20"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setExpertModalOpen(true);
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-brand-pink text-white font-semibold text-sm shadow-md hover:bg-[#c20279] active:scale-98 transition-all"
                 >
                   <span>Talk to an Expert</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
-                <div className="text-center pt-2 flex items-center justify-center gap-2 text-xs text-slate-400">
-                  <a href="tel:+918014502502" className="hover:text-brand-cyan hover:underline transition-colors">
-                    +91 80145 02502
+
+                <div className="text-center pt-2 flex flex-col items-center gap-1.5 text-xs text-slate-600">
+                  <a
+                    href="tel:+918014503503"
+                    className="flex items-center gap-1.5 hover:text-brand-pink transition-colors font-medium"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-brand-pink" />
+                    +91 80145 03503
                   </a>
-                  <span>|</span>
-                  <a href="mailto:sales@swarajasia.com" className="hover:text-brand-cyan hover:underline transition-colors">
+                  <a
+                    href="mailto:sales@swarajasia.com"
+                    className="flex items-center gap-1.5 hover:text-brand-pink transition-colors font-medium"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-brand-pink" />
                     sales@swarajasia.com
                   </a>
+                </div>
+
+                <div className="flex items-center justify-center gap-3 pt-2">
+                  {socialLinks.map((s) => {
+                    const Icon = s.icon;
+                    return (
+                      <a
+                        key={s.name}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Swaraj Asia on ${s.name}`}
+                        className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-white hover:bg-brand-pink hover:border-brand-pink transition-all"
+                      >
+                        <Icon className="w-4 h-4" />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ── Direct Expert Consultation Modal ── */}
+      <ExpertModal
+        isOpen={expertModalOpen}
+        onClose={() => setExpertModalOpen(false)}
+      />
     </>
   );
 }

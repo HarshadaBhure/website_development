@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import SEO from '../../components/Common/SEO';
 import CaseStudyCard from '../../components/Cards/CaseStudyCard';
 import LoadingSkeleton from '../../components/Common/LoadingSkeleton';
@@ -37,21 +36,21 @@ export default function CaseStudies() {
         description="Explore real-world enterprise success stories across Manufacturing SAP S/4HANA ERP, Retail Power BI Telemetry, and Salesforce CRM."
       />
 
-      <section className="py-20 bg-gradient-to-b from-brand-dark via-slate-900 to-brand-dark border-b border-slate-800/80 text-center space-y-4">
+      <section className="py-20 bg-white border-b border-slate-200 text-center space-y-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-xs font-bold tracking-wider text-brand-cyan uppercase bg-brand-cyan/10 border border-brand-cyan/20 px-3.5 py-1.5 rounded-full">
+          <span className="badge-yellow">
             Proven Results
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white mt-3">
-            Enterprise <span className="text-gradient-primary">Case Studies</span>
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 mt-3">
+            Enterprise <span className="text-yellow-gradient">Case Studies</span>
           </h1>
-          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
             Discover how we partner with global enterprise clients to overcome complex business challenges and achieve quantifiable outcomes.
           </p>
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="flex flex-wrap items-center justify-center gap-2">
@@ -61,8 +60,8 @@ export default function CaseStudies() {
                 onClick={() => setFilteredIndustry(ind)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   filteredIndustry === ind
-                    ? 'bg-brand-royal text-white shadow-lg shadow-brand-royal/25'
-                    : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60'
+                    ? 'bg-brand-yellow text-slate-900 shadow-md shadow-yellow-500/20'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
                 }`}
               >
                 {ind}
@@ -73,7 +72,7 @@ export default function CaseStudies() {
           {loading ? (
             <LoadingSkeleton count={3} />
           ) : displayedList.length === 0 ? (
-            <div className="text-center py-12 text-slate-400">
+            <div className="text-center py-12 text-slate-500 bg-slate-50 rounded-2xl border border-slate-200">
               No case studies found for this industry filter.
             </div>
           ) : (
