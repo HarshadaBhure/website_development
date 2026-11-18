@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,8 +7,6 @@
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
   }
 
   html {
@@ -16,15 +14,12 @@
   }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #030712;
-    color: #f8fafc;
-  }
-
-  code, .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+    background: #FFFFFF;
+    color: #0F172A;
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar {
@@ -32,19 +27,74 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.03);
+    background: #f1f5f9;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.1);
+    background: #cbd5e1;
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255,255,255,0.2);
+    background: #94a3b8;
   }
 }
 
-@layer utilities {
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+@layer components {
+  /* ── Button Styles ── */
+  .btn-pink {
+    @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand-pink text-white font-semibold text-sm shadow-soft-pink hover:bg-pink-700 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-pink;
+  }
+
+  .btn-cyan {
+    @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand-cyan text-white font-semibold text-sm shadow-soft-cyan hover:bg-cyan-600 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-cyan;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 font-semibold text-sm hover:border-slate-400 hover:text-slate-900 transition-all duration-200 bg-white focus:outline-none;
+  }
+
+  /* ── Badge / Label Pills ── */
+  .badge-pink {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 border border-pink-200 text-brand-pink text-xs font-bold tracking-wide;
+  }
+
+  .badge-cyan {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-200 text-brand-cyan text-xs font-bold tracking-wide;
+  }
+
+  .badge-yellow {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-50 border border-yellow-200 text-yellow-700 text-xs font-bold tracking-wide;
+  }
+
+  /* ── Glass Card ── */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md;
+  }
+
+  /* ── Text Gradient ── */
+  .text-pink-gradient {
+    @apply bg-gradient-to-r from-brand-pink to-pink-400 bg-clip-text text-transparent;
+  }
+
+  .text-cyan-gradient {
+    @apply bg-gradient-to-r from-brand-cyan to-cyan-400 bg-clip-text text-transparent;
+  }
+
+  /* ── Section Container ── */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ── Form Input ── */
+  .form-input {
+    @apply w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:border-brand-pink transition-colors;
+  }
+
+  /* ── Hide scrollbar ── */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
